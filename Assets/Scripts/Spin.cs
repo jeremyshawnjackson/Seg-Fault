@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Redux
@@ -13,7 +11,10 @@ namespace Redux
             {
                 enemy.transform.Rotate(0, enemy.TurnSpeed * Time.deltaTime, 0);
             }
-            else{Debug.LogError("not enemy");}
+            else
+            {
+                Debug.LogError("not enemy");
+            }
         }
     }
 }

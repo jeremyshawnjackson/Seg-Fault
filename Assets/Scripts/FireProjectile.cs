@@ -1,22 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Redux;
 
-namespace Redux
+[RequireComponent(typeof(GunController))]
+public class FireProjectile : ScriptableObject, ICommand
 {
-    [RequireComponent(typeof(GunController))]
-    public class FireProjectile : ScriptableObject, ICommand
+    public void Execute(GameObject gameObject)
     {
-        public void Execute(GameObject gameObject)
-        {
-            GunController gun = gameObject.GetComponent<GunController>();
-            GameObject projectile = gun.ProjectilePrefab;
+        GunController gun = gameObject.GetComponent<GunController>();
+        GameObject projectile = gun.ProjectilePrefab;
 
-            if (gun.LastTimeFired + gun.FireRate <= Time.time)
-            {
-                gun.LastTimeFired = Time.time;
-                gun.ObjectPool.SpawnFromPool(gun.ProjectileTag, gun.transform.position, gun.transform.rotation);
-            }
+        if (gun.LastTimeFired + gun.FireRate <= Time.time)
+        {
+            gun.LastTimeFired = Time.time;
+            gun.ObjectPool.SpawnFromPool(gun.ProjectileTag, gun.transform.position, gun.transform.rotation);
         }
     }
 }
