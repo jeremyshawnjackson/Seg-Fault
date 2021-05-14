@@ -43,5 +43,20 @@ namespace Redux
             Debug.Log("Enemy " + this.gameObject.name + " has died!");
             Destroy(this.gameObject);
         }
+
+        public void TakeDamage()
+        {
+            Health -= 1;
+            Debug.Log("Enemy health reduced to " + Health);
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (this.tag != other.tag)
+            {
+                // Debug.Log("Enemy triggered by: " + other.tag);
+                TakeDamage();
+            }
+        }
     }
 }

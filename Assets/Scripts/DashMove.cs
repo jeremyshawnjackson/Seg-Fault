@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using Redux;
 
-// TODO: IFrames, fix dashing over walls
 public class DashMove : ScriptableObject, ICommand
 {
-    public int RemainingCharges;
+    private int RemainingCharges;
     private float CooldownTimer;
     public bool Dashing;
     private Vector3 Destination;
@@ -26,6 +27,7 @@ public class DashMove : ScriptableObject, ICommand
 
         if (Input.GetKey(KeyCode.LeftShift) && RemainingCharges > 0)
         {
+            MakeInvulnerable();
             RemainingCharges -= 1;
             // UIText.text = RemainingCharges.ToString();
             Trail.Play();
@@ -40,7 +42,7 @@ public class DashMove : ScriptableObject, ICommand
             Destination = gameObject.transform.position + Player.DashDistance * movement.normalized;
 
             // Buggy and maybe unecessary. The intent is to avoid dashing into terrain
-            RaycastHit hit;
+            /*RaycastHit hit;
             if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, Player.DashDistance, LayerMask.GetMask("Terrain")))
             {
                 Debug.Log("hit");
@@ -59,7 +61,7 @@ public class DashMove : ScriptableObject, ICommand
                         Destination = closestPoint + gameObject.transform.forward * 6f;
                     }
                 }
-            }
+            }*/
 
             Dashing = true;
         }
@@ -87,8 +89,37 @@ public class DashMove : ScriptableObject, ICommand
             }
             else
             {
+                MakeVulnerable();
                 Dashing = false;
             }
         }
+    }
+
+    void MakeInvulnerable()
+    {
+        Debug.Log("Player invulnerable!");
+        List<Collider> colliders = new List<Collider>(Player.gameObject.GetComponentsInChildren<BoxCollider>());
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    void MakeVulnerable()
+    {
+        Debug.Log("Player vulnerable!");
+        List<Collider> colliders = new List<Collider>(Player.gameObject.GetComponentsInChildren<BoxCollider>());
+        foreach (var collider in colliders)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    private IEnumerator MakeTemporaryInvulnerable()
+    {
+        // Doesn't work, idk why
+        MakeInvulnerable();
+        yield return new WaitForSeconds(1f);
+        MakeVulnerable();
     }
 }
