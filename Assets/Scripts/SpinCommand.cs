@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Redux
 {
-    public class Spin : ScriptableObject, ICommand
+    public class SpinCommand : ScriptableObject, ICommand
     {
         public void Execute(GameObject gameObject)
         {

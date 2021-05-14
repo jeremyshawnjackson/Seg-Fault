@@ -5,7 +5,7 @@ using UnityEngine;
 public class CircleRenderer : MonoBehaviour
 {
     int segments = 360;
-    public float lineWidth;
+    public float Width;
     public float Radius;
     LineRenderer line;
     public Material Mat;
@@ -33,8 +33,8 @@ public class CircleRenderer : MonoBehaviour
 
     void DrawCircle(float radius)
     {
-        line.startWidth = lineWidth;
-        line.endWidth = lineWidth;
+        line.startWidth = Width;
+        line.endWidth = Width;
         for (int i = 0; i < pointCount; i++)
         {
             var rad = Mathf.Deg2Rad * (i * 360f / segments);

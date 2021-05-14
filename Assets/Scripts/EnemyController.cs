@@ -12,6 +12,7 @@ namespace Redux
         private ICommand MoveCommand;
         private enum EnemyTypes
         {
+            Stationary,
             Spin
         }
 
@@ -19,8 +20,11 @@ namespace Redux
         {
             switch(EnemyType)
             {
+                case EnemyTypes.Stationary:
+                    this.MoveCommand = ScriptableObject.CreateInstance<StayCommand>();
+                    break;
                 case EnemyTypes.Spin:
-                    this.MoveCommand = ScriptableObject.CreateInstance<Spin>();
+                    this.MoveCommand = ScriptableObject.CreateInstance<SpinCommand>();
                     break;
             }
         }

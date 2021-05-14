@@ -67,10 +67,16 @@ namespace Redux
 
         void OnTriggerEnter(Collider other)
         {
-            if (this.tag != other.tag)
+            // if (this.tag != other.tag)
+            // {
+            //     Debug.Log("Enemy triggered by: " + other.tag);
+            //     TakeDamage();
+            // }
+            switch(other.tag)
             {
-                Debug.Log("Enemy triggered by: " + other.tag);
-                TakeDamage();
+                case "Enemy":
+                    TakeDamage();
+                    break;
             }
         }
     }
