@@ -44,11 +44,11 @@ namespace Redux
 
         public void OnTriggerEnter(Collider other)
         {
-            if (this.tag == other.tag || this.tag == "PlayerProjectile" && other.tag == "Player")
+            if (this.tag == other.tag || (this.tag == "PlayerProjectile" && other.tag == "Player") || other.tag == "Shockwave")
             {
                 return;
             }
-            
+            Debug.Log("trigger: " + other.tag);
             this.gameObject.SetActive(false);
         }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Redux;
 
-public class MovePlayer : ScriptableObject, ICommand
+public class CommandMovePlayer : ScriptableObject, ICommand
 {
     public void Execute(GameObject gameObject)
     {

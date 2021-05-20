@@ -2,7 +2,7 @@ using UnityEngine;
 using Redux;
 
 [RequireComponent(typeof(GunController))]
-public class FireProjectile : ScriptableObject, ICommand
+public class CommandFireProjectile : ScriptableObject, ICommand
 {
     public void Execute(GameObject gameObject)
     {

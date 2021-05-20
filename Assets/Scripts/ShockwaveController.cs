@@ -1,38 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Redux;
 
 [RequireComponent(typeof(CircleRenderer))]
-public class ShockwaveController : MonoBehaviour
+public class ShockwaveController : MonoBehaviour, IPooledObject
 {
-    // Start is called before the first frame update
-    [SerializeField] private SphereCollider OuterRim;
-    [SerializeField] private SphereCollider InnerRim;    
+    [SerializeField] private SphereCollider Hitbox;  
     [SerializeField] private float MaxRadius;
     [SerializeField] private float GrowthSpeed;
-    [SerializeField] private CircleRenderer CircleRender;
+    [SerializeField] private CircleRenderer CircleRenderer;
     [SerializeField] private float Width;
 
-    void Start()
+    public void OnObjectSpawn()
     {
-        CircleRender.Radius = 0;
-        CircleRender.Width = Width;
-        OuterRim.radius = CircleRender.Radius + Width / 2;
-        InnerRim.radius = CircleRender.Radius - Width / 2;
+        // this.gameObject.SetActive(true);
+        CircleRenderer.Radius = 0;
+        CircleRenderer.Width = Width;
+        Hitbox.radius = CircleRenderer.Radius + Width / 2;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (CircleRender.Radius < MaxRadius)
+        if (CircleRenderer.Radius < MaxRadius)
         {
-            CircleRender.Radius += GrowthSpeed;
+            CircleRenderer.Radius += GrowthSpeed;
         }
         else
         {
-            CircleRender.Radius = 0;
+            this.gameObject.SetActive(false);
         }
-        OuterRim.radius = CircleRender.Radius + CircleRender.Width / 2;
-        InnerRim.radius = CircleRender.Radius - CircleRender.Width / 2;
+        Hitbox.radius = CircleRenderer.Radius + CircleRenderer.Width / 2;
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Redux
 {
-    public class StayCommand : ScriptableObject, ICommand
+    public class CommandStay : ScriptableObject, ICommand
     {
         public void Execute(GameObject gameObject)
         {

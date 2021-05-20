@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - PlayerPojectile
+  - Shockwave
   layers:
   - Default
   - TransparentFX

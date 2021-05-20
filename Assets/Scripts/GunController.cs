@@ -32,7 +32,7 @@ namespace Redux
                     break;
             }
             ObjectPool = ObjectPooler.Instance;
-            this.Fire1 = ScriptableObject.CreateInstance<FireProjectile>();
+            this.Fire1 = ScriptableObject.CreateInstance<CommandFireProjectile>();
         }
 
         void Update()

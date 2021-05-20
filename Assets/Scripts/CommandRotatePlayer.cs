@@ -1,7 +1,7 @@
 using UnityEngine;
 using Redux;
 
-public class RotatePlayer : ScriptableObject, ICommand
+public class CommandRotatePlayer : ScriptableObject, ICommand
 {
     public void Execute(GameObject gameObject)
     {

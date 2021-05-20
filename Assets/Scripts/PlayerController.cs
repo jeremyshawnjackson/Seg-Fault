@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Redux
 {
@@ -22,15 +24,19 @@ namespace Redux
 
         private float DamageCooldown;
         private float TimeSinceDamaged;
+        private string LastTrigger;
+        private List<Collider> TriggerList;
 
         void Start()
         {
-            this.MoveCommand = ScriptableObject.CreateInstance<MovePlayer>();
-            this.RotateCommand = ScriptableObject.CreateInstance<RotatePlayer>();
-            this.DashCommand = ScriptableObject.CreateInstance<DashMove>();
+            this.MoveCommand = ScriptableObject.CreateInstance<CommandMovePlayer>();
+            this.RotateCommand = ScriptableObject.CreateInstance<CommandRotatePlayer>();
+            this.DashCommand = ScriptableObject.CreateInstance<CommandDash>();
 
             DamageCooldown = 0.5f;
             TimeSinceDamaged = DamageCooldown;
+
+            TriggerList = new List<Collider>();
         }
 
         void FixedUpdate()
@@ -67,17 +73,49 @@ namespace Redux
 
         void OnTriggerEnter(Collider other)
         {
-            // if (this.tag != other.tag)
-            // {
-            //     Debug.Log("Enemy triggered by: " + other.tag);
-            //     TakeDamage();
-            // }
+            Debug.Log("player triggered on " + other.tag);
             switch(other.tag)
             {
                 case "Enemy":
+                case "Shockwave":
                     TakeDamage();
                     break;
+                // fix dashing overshockwaves
             }
+            LastTrigger = other.tag;
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+
+        }
+
+        public void MakeInvulnerable()
+        {
+            TimeSinceDamaged = 0;
+            Debug.Log("Player invulnerable!");
+            // List<Collider> colliders = new List<Collider>(this.GetComponentsInChildren<BoxCollider>());
+            // foreach (var collider in colliders)
+            // {
+            //     collider.enabled = false;
+            // }
+        }
+
+        void MakeVulnerable()
+        {
+            Debug.Log("Player vulnerable!");
+            // List<Collider> colliders = new List<Collider>(this.GetComponentsInChildren<BoxCollider>());
+            // foreach (var collider in colliders)
+            // {
+            //     collider.enabled = true;
+            // }
+        }
+
+        public IEnumerator MakeTemporaryInvulnerable(float invulnTime)
+        {
+            // MakeInvulnerable();
+            yield return new WaitForSeconds(invulnTime);
+            // MakeVulnerable();
         }
     }
 }

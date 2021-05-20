@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Redux
 {
@@ -10,6 +11,7 @@ namespace Redux
         [SerializeField] private EnemyTypes EnemyType;
 
         private ICommand MoveCommand;
+        private Transform target;
         private enum EnemyTypes
         {
             Stationary,
@@ -18,13 +20,14 @@ namespace Redux
 
         void Start()
         {
+            target = GameObject.Find("Player").transform;
             switch(EnemyType)
             {
                 case EnemyTypes.Stationary:
-                    this.MoveCommand = ScriptableObject.CreateInstance<StayCommand>();
+                    this.MoveCommand = ScriptableObject.CreateInstance<CommandStay>();
                     break;
                 case EnemyTypes.Spin:
-                    this.MoveCommand = ScriptableObject.CreateInstance<SpinCommand>();
+                    this.MoveCommand = ScriptableObject.CreateInstance<CommandSpin>();
                     break;
             }
         }
