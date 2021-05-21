@@ -3,7 +3,6 @@ using Redux;
 
 public class LaserController : MonoBehaviour
 {
-    // TODO: Add hitbox
     [SerializeField] private Transform FirePoint;
     [SerializeField] private LineRenderer Laser;
     [SerializeField] private float MaxDistance;
@@ -26,8 +25,8 @@ public class LaserController : MonoBehaviour
             Debug.DrawLine(FirePoint.position, hit.point, Color.red);
             DrawRay(FirePoint.position, FirePoint.position + FirePoint.forward * hit.distance);
             PlayerController player = hit.collider.gameObject.GetComponentInParent<PlayerController>();
-            Debug.Log("HIT: " + hit.collider.tag);
-            if (player)
+            // Debug.Log("HIT: " + hit.collider.tag);
+            if (player && player.GetIsVulnerable())
             {
                 player.TakeDamage();
             }

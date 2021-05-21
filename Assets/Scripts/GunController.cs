@@ -1,58 +1,65 @@
 using UnityEngine;
+using Redux;
 
-namespace Redux
+[RequireComponent(typeof(AudioSource))]
+public class GunController : MonoBehaviour
 {
-    public class GunController : MonoBehaviour
+    [SerializeField] public GameObject ProjectilePrefab;
+    [SerializeField] public float FireRate;
+    [SerializeField] private GunTypes GunType;
+    [SerializeField] public AudioClip ShootSound;
+    [HideInInspector] public ObjectPooler ObjectPool;
+    [HideInInspector] public float LastTimeFired;
+    [HideInInspector] public string ProjectileTag;
+    private ICommand Fire1;
+    public AudioManagerController AudioManager;
+    private enum GunTypes
     {
-        [SerializeField] public GameObject ProjectilePrefab;
-        [SerializeField] public float FireRate;
-        [SerializeField] private GunTypes GunType;
-        [HideInInspector] public ObjectPooler ObjectPool;
-        [HideInInspector] public float LastTimeFired;
-        [HideInInspector] public string ProjectileTag;
-        private ICommand Fire1;
-        private enum GunTypes
-        {
-            Player,
-            Enemy
-        }
+        Player,
+        Enemy
+    }
 
-        void Start()
+    void Start()
+    {
+        AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+        switch(GunType)
         {
-            switch(GunType)
-            {
-                case GunTypes.Player:
-                    ProjectileTag = "PlayerProjectile";
-                    break;
-                case GunTypes.Enemy:
-                    ProjectileTag = "EnemyProjectile";
-                    break;
-                default:
-                    Debug.LogError("Gun type missing.");
-                    break;
-            }
-            ObjectPool = ObjectPooler.Instance;
-            this.Fire1 = ScriptableObject.CreateInstance<CommandFireProjectile>();
+            case GunTypes.Player:
+                ProjectileTag = "PlayerProjectile";
+                break;
+            case GunTypes.Enemy:
+                ProjectileTag = "EnemyProjectile";
+                break;
+            default:
+                Debug.LogError("Gun type missing.");
+                break;
         }
+        ObjectPool = ObjectPooler.Instance;
+        this.Fire1 = ScriptableObject.CreateInstance<CommandFireProjectile>();
+    }
 
-        void Update()
+    void Update()
+    {
+        if (this.tag == "Player")
         {
-            if (this.tag == "Player")
-            {
-                this.ReadWeaponInput();
-            }
-            else
-            {
-                this.Fire1.Execute(this.gameObject);
-            }
+            this.ReadWeaponInput();
         }
+        else
+        {
+            this.Fire1.Execute(this.gameObject);
+        }
+    }
 
-        void ReadWeaponInput()
+    void ReadWeaponInput()
+    {
+        if (Input.GetButton("Fire1"))
         {
-            if (Input.GetButton("Fire1"))
-            {
-                this.Fire1.Execute(this.gameObject);
-            }
+            this.Fire1.Execute(this.gameObject);
         }
+    }
+
+    public void PlayShootSound()
+    {
+        AudioManager.PlayClip(ShootSound);
     }
 }

@@ -129,3 +129,4 @@ MonoBehaviour:
   Speed: 75
   MaxDistance: 150
   Damage: 1
+  SoundEffect: {fileID: 8300000, guid: 7308070eb29dd5e488fd913a9602cba2, type: 3}

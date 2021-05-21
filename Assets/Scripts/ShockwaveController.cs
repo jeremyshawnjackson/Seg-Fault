@@ -32,4 +32,17 @@ public class ShockwaveController : MonoBehaviour, IPooledObject
         }
         Hitbox.radius = CircleRenderer.Radius + CircleRenderer.Width / 2;
     }
+
+    // void OntriggerEnter(Collider other)
+    // {
+    //     StartCoroutine(Reset());
+    // }
+
+    // public IEnumerator Reset()
+    // {
+    //     Debug.Log("shockwave reset");
+    //     Hitbox.enabled = false;
+    //     yield return new WaitForSeconds(.3f);
+    //     Hitbox.enabled = true;
+    // }
 }

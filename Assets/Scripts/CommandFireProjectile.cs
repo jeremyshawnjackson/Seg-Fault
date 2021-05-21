@@ -12,6 +12,7 @@ public class CommandFireProjectile : ScriptableObject, ICommand
         if (gun.LastTimeFired + gun.FireRate <= Time.time)
         {
             gun.LastTimeFired = Time.time;
+            gun.PlayShootSound();
             gun.ObjectPool.SpawnFromPool(gun.ProjectileTag, gun.transform.position, gun.transform.rotation);
         }
     }

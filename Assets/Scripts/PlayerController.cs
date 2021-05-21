@@ -8,24 +8,30 @@ namespace Redux
     {
         [Header("Basic Settings")]
         [SerializeField] private int Health;
-        [SerializeField] public float MoveSpeed;
-        [SerializeField] public float TurnSpeed;
+        public float MoveSpeed;
+        public float TurnSpeed;
+        public AudioClip HitSound;
+        public AudioClip DashSound;
+        public AudioClip DeathSound;
+        
         
         [Header("Dash Settings")]
-        [SerializeField] public int DashCharges;
-        [SerializeField] public float DashCooldown;
-        [SerializeField] public float DashDistance;
-        [SerializeField] public float DashSpeed;
+        public int DashCharges;
+        public float DashCooldown;
+        public float DashDistance;
+        public float DashSpeed;
+
+
+        [HideInInspector] public AudioManagerController AudioManager;
 
 
         private ICommand MoveCommand;
         private ICommand RotateCommand;
         private ICommand DashCommand;
 
-        private float DamageCooldown;
+        private float DamageCooldown;   // bandaid solution to multiple colliders triggering on the same event
         private float TimeSinceDamaged;
-        private string LastTrigger;
-        private List<Collider> TriggerList;
+        private bool IsVulnerable;
 
         void Start()
         {
@@ -33,10 +39,11 @@ namespace Redux
             this.RotateCommand = ScriptableObject.CreateInstance<CommandRotatePlayer>();
             this.DashCommand = ScriptableObject.CreateInstance<CommandDash>();
 
-            DamageCooldown = 0.5f;
+            DamageCooldown = 0.3f;
+            IsVulnerable = true;
             TimeSinceDamaged = DamageCooldown;
 
-            TriggerList = new List<Collider>();
+            AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         }
 
         void FixedUpdate()
@@ -58,6 +65,7 @@ namespace Redux
         {
             // TODO: GAME OVER, effects
             Debug.Log("Player has died!");
+            AudioManager.PlayClip(DeathSound);
             this.gameObject.SetActive(false);
         }
 
@@ -65,6 +73,7 @@ namespace Redux
         {
             if (TimeSinceDamaged >= DamageCooldown)
             {
+                AudioManager.PlayClip(HitSound);
                 Health -= 1;
                 Debug.Log("Player health reduced to " + Health);
                 TimeSinceDamaged = 0;
@@ -74,15 +83,16 @@ namespace Redux
         void OnTriggerEnter(Collider other)
         {
             Debug.Log("player triggered on " + other.tag);
-            switch(other.tag)
+            if (this.IsVulnerable)
             {
-                case "Enemy":
-                case "Shockwave":
-                    TakeDamage();
-                    break;
-                // fix dashing overshockwaves
+                switch(other.tag)
+                {
+                    case "Enemy":
+                    case "Shockwave":
+                        TakeDamage();
+                        break;
+                }
             }
-            LastTrigger = other.tag;
         }
 
         void OnTriggerExit(Collider other)
@@ -92,30 +102,26 @@ namespace Redux
 
         public void MakeInvulnerable()
         {
-            TimeSinceDamaged = 0;
+            this.IsVulnerable = false;
             Debug.Log("Player invulnerable!");
-            // List<Collider> colliders = new List<Collider>(this.GetComponentsInChildren<BoxCollider>());
-            // foreach (var collider in colliders)
-            // {
-            //     collider.enabled = false;
-            // }
         }
 
         void MakeVulnerable()
         {
+            this.IsVulnerable = true;
             Debug.Log("Player vulnerable!");
-            // List<Collider> colliders = new List<Collider>(this.GetComponentsInChildren<BoxCollider>());
-            // foreach (var collider in colliders)
-            // {
-            //     collider.enabled = true;
-            // }
         }
 
         public IEnumerator MakeTemporaryInvulnerable(float invulnTime)
         {
-            // MakeInvulnerable();
+            MakeInvulnerable();
             yield return new WaitForSeconds(invulnTime);
-            // MakeVulnerable();
+            MakeVulnerable();
+        }
+
+        public bool GetIsVulnerable()
+        {
+            return IsVulnerable;
         }
     }
 }

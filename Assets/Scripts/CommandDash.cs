@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using Redux;
 
 public class CommandDash : ScriptableObject, ICommand
@@ -9,6 +10,7 @@ public class CommandDash : ScriptableObject, ICommand
     private Vector3 Destination;
     private ParticleSystem Trail;
     private PlayerController Player;
+    private float LastTimeDashed;
 
     public void Execute(GameObject gameObject)
     {
@@ -19,14 +21,16 @@ public class CommandDash : ScriptableObject, ICommand
             Trail = gameObject.transform.Find("Trail").GetComponent<ParticleSystem>();
             RemainingCharges = Player.DashCharges;
             CooldownTimer = Player.DashCooldown;
+            LastTimeDashed = 0;
             Dashing = false;
             // UIText.text = RemainingCharges.ToString();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && RemainingCharges > 0)
+        if (Input.GetKey(KeyCode.LeftShift) && RemainingCharges > 0 && (LastTimeDashed + Player.DashCooldown) < Time.time)
         {
-            // Player.StartCoroutine(Player.MakeTemporaryInvulnerable(.25f));
-            Player.MakeInvulnerable();
+            LastTimeDashed = Time.time;
+            Player.StartCoroutine(Player.MakeTemporaryInvulnerable(0.25f));
+            Player.AudioManager.PlayClip(Player.DashSound);
             RemainingCharges -= 1;
             // UIText.text = RemainingCharges.ToString();
             Trail.Play();

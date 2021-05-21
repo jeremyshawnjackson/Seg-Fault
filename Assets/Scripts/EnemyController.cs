@@ -1,69 +1,74 @@
 using UnityEngine;
 using System.Collections;
+using Redux;
 
-namespace Redux
+public class EnemyController : MonoBehaviour
 {
-    public class EnemyController : MonoBehaviour
+    [SerializeField] public float Health;
+    [SerializeField] public float MoveSpeed;
+    [SerializeField] public float TurnSpeed;
+    [SerializeField] private EnemyTypes EnemyType;
+    [SerializeField] private AudioClip HitSound;
+    [SerializeField] private AudioClip DeathSound;
+
+    private ICommand MoveCommand;
+    private Transform target;
+    private AudioManagerController AudioManager;
+    private enum EnemyTypes
     {
-        [SerializeField] public float Health;
-        [SerializeField] public float MoveSpeed;
-        [SerializeField] public float TurnSpeed;
-        [SerializeField] private EnemyTypes EnemyType;
+        Stationary,
+        Spin
+    }
 
-        private ICommand MoveCommand;
-        private Transform target;
-        private enum EnemyTypes
+    void Start()
+    {
+        AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+        target = GameObject.Find("Player").transform;
+        switch(EnemyType)
         {
-            Stationary,
-            Spin
+            case EnemyTypes.Stationary:
+                this.MoveCommand = ScriptableObject.CreateInstance<CommandStay>();
+                break;
+            case EnemyTypes.Spin:
+                this.MoveCommand = ScriptableObject.CreateInstance<CommandSpin>();
+                break;
         }
+    }
 
-        void Start()
+    void FixedUpdate()
+    {
+        this.MoveCommand.Execute(this.gameObject);
+    }
+
+    void Update()
+    {
+        if (Health <= 0)
         {
-            target = GameObject.Find("Player").transform;
-            switch(EnemyType)
-            {
-                case EnemyTypes.Stationary:
-                    this.MoveCommand = ScriptableObject.CreateInstance<CommandStay>();
-                    break;
-                case EnemyTypes.Spin:
-                    this.MoveCommand = ScriptableObject.CreateInstance<CommandSpin>();
-                    break;
-            }
+            Die();
         }
+    }
 
-        void FixedUpdate()
-        {
-            this.MoveCommand.Execute(this.gameObject);
-        }
+    public void Die()
+    {
+        AudioManager.PlayClip(DeathSound);
+        Debug.Log("Enemy " + this.gameObject.name + " has died!");
+        Destroy(this.gameObject);
+    }
 
-        void Update()
-        {
-            if (Health <= 0)
-            {
-                Die();
-            }
-        }
+    public void TakeDamage()
+    {
+        // this.Audio.PlayOneShot(HitSound, 0.01f);
+        AudioManager.PlayClip(HitSound);
+        Health -= 1;
+        Debug.Log("Enemy health reduced to " + Health);
+    }
 
-        public void Die()
+    void OnTriggerEnter(Collider other)
+    {
+        if (this.tag != other.tag)
         {
-            Debug.Log("Enemy " + this.gameObject.name + " has died!");
-            Destroy(this.gameObject);
-        }
-
-        public void TakeDamage()
-        {
-            Health -= 1;
-            Debug.Log("Enemy health reduced to " + Health);
-        }
-
-        void OnTriggerEnter(Collider other)
-        {
-            if (this.tag != other.tag)
-            {
-                // Debug.Log("Enemy triggered by: " + other.tag);
-                TakeDamage();
-            }
+            // Debug.Log("Enemy triggered by: " + other.tag);
+            TakeDamage();
         }
     }
 }

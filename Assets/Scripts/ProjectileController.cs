@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Redux
 {
@@ -9,11 +10,11 @@ namespace Redux
         [SerializeField] private float Damage;
         private Vector3 FiringPoint;
         private bool Active = false;
-        private Rigidbody rb;
+        private Rigidbody RigidBody;
 
         void Start()
         {
-            rb = GetComponent<Rigidbody>();
+            RigidBody = GetComponent<Rigidbody>();
         }
 
         public void OnObjectSpawn()
@@ -38,15 +39,26 @@ namespace Redux
             }
             else
             {
-                rb.velocity = transform.forward * Speed * 50 * Time.deltaTime;
+                RigidBody.velocity = transform.forward * Speed * 50 * Time.deltaTime;
             }
         }
 
         public void OnTriggerEnter(Collider other)
         {
-            if (this.tag == other.tag || (this.tag == "PlayerProjectile" && other.tag == "Player") || other.tag == "Shockwave")
+            if (this.tag == other.tag || 
+                this.tag == "PlayerProjectile" && other.tag == "Player" || 
+                other.tag == "Shockwave")
             {
                 return;
+            }
+            if (other.tag == "Player")
+            {
+                PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
+                if (player.GetIsVulnerable() == false)
+                {
+                    Debug.Log("Projectile should live here");
+                    return;
+                }
             }
             Debug.Log("trigger: " + other.tag);
             this.gameObject.SetActive(false);
@@ -58,6 +70,15 @@ namespace Redux
             if (this.tag == collision.collider.tag || this.tag == "PlayerProjectile" && collision.collider.tag == "Player")
             {
                 return;
+            }
+            if (collision.collider.tag == "Player")
+            {
+                PlayerController player = collision.gameObject.GetComponentInParent<PlayerController>();
+                if (player.GetIsVulnerable() == false)
+                {
+                    Debug.Log("Projectile should live here");
+                    return;
+                }
             }
             this.gameObject.SetActive(false);
         }
