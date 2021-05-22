@@ -88,6 +88,7 @@ namespace Redux
                 switch(other.tag)
                 {
                     case "Enemy":
+                    case "EnemyProjectile":
                     case "Shockwave":
                         TakeDamage();
                         break;

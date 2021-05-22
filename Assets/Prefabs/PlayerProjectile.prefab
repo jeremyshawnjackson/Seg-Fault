@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2175500457686029335}
   m_Layer: 11
   m_Name: PlayerProjectile
-  m_TagString: PlayerPojectile
+  m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,4 +129,3 @@ MonoBehaviour:
   Speed: 75
   MaxDistance: 150
   Damage: 1
-  SoundEffect: {fileID: 8300000, guid: 7308070eb29dd5e488fd913a9602cba2, type: 3}

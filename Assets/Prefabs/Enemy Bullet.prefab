@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9171286631270867209}
   m_Layer: 8
   m_Name: Enemy Bullet
-  m_TagString: Enemy
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,6 @@ MonoBehaviour:
   Speed: 20
   MaxDistance: 200
   Damage: 1
-  Audio: {fileID: 9171286631270867209}
 --- !u!82 &9171286631270867209
 AudioSource:
   m_ObjectHideFlags: 0

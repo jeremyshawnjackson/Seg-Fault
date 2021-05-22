@@ -5,32 +5,44 @@ using Redux;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] public float Health;
-    [SerializeField] public float MoveSpeed;
-    [SerializeField] public float TurnSpeed;
+    public float MoveSpeed;
+    public float TurnSpeed;
     [SerializeField] private EnemyTypes EnemyType;
     [SerializeField] private AudioClip HitSound;
     [SerializeField] private AudioClip DeathSound;
 
+    [HideInInspector] public float VisionRadius;
+
+    private Rigidbody Rigidbody;
     private ICommand MoveCommand;
     private Transform target;
     private AudioManagerController AudioManager;
     private enum EnemyTypes
     {
         Stationary,
-        Spin
+        Spin,
+        Chase
     }
 
     void Start()
     {
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+        Rigidbody = this.GetComponent<Rigidbody>();
         target = GameObject.Find("Player").transform;
         switch(EnemyType)
         {
             case EnemyTypes.Stationary:
                 this.MoveCommand = ScriptableObject.CreateInstance<CommandStay>();
+                Rigidbody.mass = 99999999;
+                Rigidbody.drag = 99999999;
                 break;
             case EnemyTypes.Spin:
                 this.MoveCommand = ScriptableObject.CreateInstance<CommandSpin>();
+                Rigidbody.mass = 99999999;
+                Rigidbody.drag = 99999999;
+                break;
+            case EnemyTypes.Chase:
+                this.MoveCommand = ScriptableObject.CreateInstance<CommandChasePlayer>();
                 break;
         }
     }
@@ -65,10 +77,17 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (this.tag != other.tag)
+        // Debug.Log("Enemy triggered by: " + other.tag);
+        //if (this.tag != other.tag)
+        if (other.tag == "PlayerProjectile")
         {
-            // Debug.Log("Enemy triggered by: " + other.tag);
             TakeDamage();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, VisionRadius);
     }
 }

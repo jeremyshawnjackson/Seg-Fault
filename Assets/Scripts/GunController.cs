@@ -4,15 +4,16 @@ using Redux;
 [RequireComponent(typeof(AudioSource))]
 public class GunController : MonoBehaviour
 {
-    [SerializeField] public GameObject ProjectilePrefab;
-    [SerializeField] public float FireRate;
+    public GameObject ProjectilePrefab;
+    public float FireRate;
+    public float ProjectileSpeed;
     [SerializeField] private GunTypes GunType;
     [SerializeField] public AudioClip ShootSound;
     [HideInInspector] public ObjectPooler ObjectPool;
     [HideInInspector] public float LastTimeFired;
     [HideInInspector] public string ProjectileTag;
     private ICommand Fire1;
-    public AudioManagerController AudioManager;
+    private AudioManagerController AudioManager;
     private enum GunTypes
     {
         Player,

@@ -5,7 +5,7 @@ namespace Redux
 {
     public class ProjectileController : MonoBehaviour, IPooledObject
     {
-        [SerializeField] private float Speed;
+        [HideInInspector] public float Speed;
         [SerializeField] private float MaxDistance;
         [SerializeField] private float Damage;
         private Vector3 FiringPoint;
