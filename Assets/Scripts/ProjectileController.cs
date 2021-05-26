@@ -47,7 +47,8 @@ namespace Redux
         {
             if (this.tag == other.tag || 
                 this.tag == "PlayerProjectile" && other.tag == "Player" || 
-                other.tag == "Shockwave")
+                other.tag == "Shockwave" || 
+                this.tag == "EnemyProjectile" && other.tag == "Forcefeild")
             {
                 return;
             }
@@ -67,7 +68,9 @@ namespace Redux
         public void OnCollisionEnter(Collision collision)
         {
             // Debug.Log(this.tag + " collided with " + collision.collider.tag);
-            if (this.tag == collision.collider.tag || this.tag == "PlayerProjectile" && collision.collider.tag == "Player")
+            if (this.tag == collision.collider.tag || 
+                this.tag == "PlayerProjectile" && collision.collider.tag == "Player" || 
+                this.tag == "EnemyProjectile" && collision.collider.tag == "Forcefield")
             {
                 return;
             }

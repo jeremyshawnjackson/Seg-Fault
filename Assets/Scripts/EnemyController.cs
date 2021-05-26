@@ -28,17 +28,16 @@ public class EnemyController : MonoBehaviour
     {
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         Rigidbody = this.GetComponent<Rigidbody>();
+        Rigidbody.mass = 99999999;
         target = GameObject.Find("Player").transform;
         switch(EnemyType)
         {
             case EnemyTypes.Stationary:
                 this.MoveCommand = ScriptableObject.CreateInstance<CommandStay>();
-                Rigidbody.mass = 99999999;
                 Rigidbody.drag = 99999999;
                 break;
             case EnemyTypes.Spin:
                 this.MoveCommand = ScriptableObject.CreateInstance<CommandSpin>();
-                Rigidbody.mass = 99999999;
                 Rigidbody.drag = 99999999;
                 break;
             case EnemyTypes.Chase:
