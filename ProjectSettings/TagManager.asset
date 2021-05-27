@@ -9,6 +9,8 @@ TagManager:
   - PlayerProjectile
   - EnemyProjectile
   - Forcefield
+  - BossProjectile
+  - AltBossProjectile
   layers:
   - Default
   - TransparentFX
@@ -23,8 +25,8 @@ TagManager:
   - Beam
   - PlayerProjectile
   - Shockwave
-  - 
-  - 
+  - BossProjectile
+  - Forcefield
   - 
   - 
   - 

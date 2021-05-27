@@ -4,6 +4,7 @@ using Redux;
 
 public class EnemyController : MonoBehaviour
 {
+    [HideInInspector] public static int EnemyCount = 0;
     [SerializeField] public float Health;
     public float MoveSpeed;
     public float TurnSpeed;
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        EnemyCount++;
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         Rigidbody = this.GetComponent<Rigidbody>();
         Rigidbody.mass = 99999999;
@@ -61,6 +63,7 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        EnemyCount--;
         AudioManager.PlayClip(DeathSound);
         Debug.Log("Enemy " + this.gameObject.name + " has died!");
         Destroy(this.gameObject);

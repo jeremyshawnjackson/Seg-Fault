@@ -7,7 +7,9 @@ namespace Redux
     public class PlayerController : MonoBehaviour
     {
         [Header("Basic Settings")]
-        [SerializeField] private int Health;
+        [HideInInspector] public int ExtraLives = 3;
+        [SerializeField] private int MaxHealth;
+        private int Health;
         public float MoveSpeed;
         public float TurnSpeed;
         public AudioClip HitSound;
@@ -43,6 +45,8 @@ namespace Redux
             IsVulnerable = true;
             TimeSinceDamaged = DamageCooldown;
 
+            Health = MaxHealth;
+
             AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         }
 
@@ -67,12 +71,21 @@ namespace Redux
             Debug.Log("Player has died!");
             AudioManager.PlayClip(DeathSound);
             this.gameObject.SetActive(false);
+            FindObjectOfType<GameManager>().EndGame();
         }
 
         public void TakeDamage()
         {
             if (TimeSinceDamaged >= DamageCooldown)
             {
+                if (Health == (int)(MaxHealth * (2f/3f) + 1))
+                {
+                    GameObject.Find("ship_wing_left").gameObject.SetActive(false);
+                }
+                if (Health == (int)(MaxHealth * (1f/3f) + 1))
+                {
+                    GameObject.Find("ship_wing_right").gameObject.SetActive(false);
+                }
                 AudioManager.PlayClip(HitSound);
                 Health -= 1;
                 Debug.Log("Player health reduced to " + Health);
@@ -88,6 +101,8 @@ namespace Redux
                 switch(other.tag)
                 {
                     case "Enemy":
+                    case "BossProjectile":
+                    case "AltBossProjectile":
                     case "EnemyProjectile":
                     case "Shockwave":
                         TakeDamage();

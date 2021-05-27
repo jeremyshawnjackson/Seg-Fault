@@ -48,7 +48,8 @@ namespace Redux
             if (this.tag == other.tag || 
                 this.tag == "PlayerProjectile" && other.tag == "Player" || 
                 other.tag == "Shockwave" || 
-                this.tag == "EnemyProjectile" && other.tag == "Forcefeild")
+                this.tag == "EnemyProjectile" && other.tag == "Forcefeild" ||
+                this.tag == "AltBossProjectile" && other.tag == "PlayerProjectile")
             {
                 return;
             }
@@ -57,7 +58,6 @@ namespace Redux
                 PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
                 if (player.GetIsVulnerable() == false)
                 {
-                    Debug.Log("Projectile should live here");
                     return;
                 }
             }
@@ -70,7 +70,8 @@ namespace Redux
             // Debug.Log(this.tag + " collided with " + collision.collider.tag);
             if (this.tag == collision.collider.tag || 
                 this.tag == "PlayerProjectile" && collision.collider.tag == "Player" || 
-                this.tag == "EnemyProjectile" && collision.collider.tag == "Forcefield")
+                this.tag == "EnemyProjectile" && collision.collider.tag == "Forcefield" ||
+                this.tag == "AltBossProjectile" && collision.collider.tag == "PlayerProjectile")
             {
                 return;
             }
