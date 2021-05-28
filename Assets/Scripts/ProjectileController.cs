@@ -11,10 +11,12 @@ namespace Redux
         private Vector3 FiringPoint;
         private bool Active = false;
         private Rigidbody RigidBody;
+        private SphereCollider Collider;
 
         void Start()
         {
-            RigidBody = GetComponent<Rigidbody>();
+            RigidBody = this.GetComponent<Rigidbody>();
+            Collider = this.GetComponent<SphereCollider>();
         }
 
         public void OnObjectSpawn()
@@ -61,7 +63,7 @@ namespace Redux
                     return;
                 }
             }
-            Debug.Log("trigger: " + other.tag);
+            // Debug.Log("trigger: " + other.tag);
             this.gameObject.SetActive(false);
         }
 
@@ -80,7 +82,8 @@ namespace Redux
                 PlayerController player = collision.gameObject.GetComponentInParent<PlayerController>();
                 if (player.GetIsVulnerable() == false)
                 {
-                    Debug.Log("Projectile should live here");
+                    // Debug.Log("Projectile should live here");
+                    Physics.IgnoreCollision(this.Collider, collision.collider);
                     return;
                 }
             }

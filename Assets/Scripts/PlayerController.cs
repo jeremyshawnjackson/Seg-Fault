@@ -95,7 +95,7 @@ namespace Redux
 
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log("player triggered on " + other.tag);
+            // Debug.Log("player triggered on " + other.tag);
             if (this.IsVulnerable)
             {
                 switch(other.tag)
@@ -111,9 +111,27 @@ namespace Redux
             }
         }
 
-        void OnTriggerExit(Collider other)
+        void OnCollisionEnter(Collision collision)
         {
+            // Debug.Log("player triggered on " + other.tag);
+            if (this.IsVulnerable)
+            {
+                switch(collision.collider.tag)
+                {
+                    case "Enemy":
+                    case "BossProjectile":
+                    case "AltBossProjectile":
+                    case "EnemyProjectile":
+                    case "Shockwave":
+                        TakeDamage();
+                        break;
+                }
+            }
+        }
 
+        public void FinishedLevel()
+        {
+            this.StartCoroutine(MakeTemporaryInvulnerable(3f));
         }
 
         public void MakeInvulnerable()
