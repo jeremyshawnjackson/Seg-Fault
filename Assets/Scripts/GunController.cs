@@ -1,7 +1,6 @@
 using UnityEngine;
 using Redux;
 
-[RequireComponent(typeof(AudioSource))]
 public class GunController : MonoBehaviour
 {
     public GameObject ProjectilePrefab;

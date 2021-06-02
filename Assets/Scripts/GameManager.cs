@@ -13,19 +13,22 @@ public class GameManager : MonoBehaviour
     public GameObject LevelCompletedUI;
     private PlayerController Player;
     private AudioManagerController AudioManager;
+    private bool LevelCompleted;
     // private List<GameObject> Enemies;
 
     void Start()
     {
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         GameHasEnded = false;
+        LevelCompleted = false;
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
     }
 
     void Update()
     {
-        if (EnemiesDefeated())
+        if (EnemiesDefeated() && !LevelCompleted)
         {
+            LevelCompleted = true;
             Player.FinishedLevel();
             Invoke("CompleteLevel", SceneDelay);
         }

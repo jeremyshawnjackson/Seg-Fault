@@ -35,7 +35,7 @@ Material:
     m_Floats: []
     m_Colors:
     - _Color: {r: 0.7490196, g: 0.1176471, b: 0, a: 0}
-    - _Emission: {r: 4.237095, g: 0.7320635, b: 0, a: 1}
+    - _Emission: {r: 95.87451, g: 16.564707, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3378880182743379449
 MonoBehaviour:

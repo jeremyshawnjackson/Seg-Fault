@@ -51,6 +51,7 @@ namespace Redux
                 this.tag == "PlayerProjectile" && other.tag == "Player" || 
                 other.tag == "Shockwave" || 
                 this.tag == "EnemyProjectile" && other.tag == "Forcefeild" ||
+                this.tag == "AltEnemyProjectile" && other.tag == "PlayerProjectile" ||
                 this.tag == "AltBossProjectile" && other.tag == "PlayerProjectile")
             {
                 return;
@@ -73,8 +74,11 @@ namespace Redux
             if (this.tag == collision.collider.tag || 
                 this.tag == "PlayerProjectile" && collision.collider.tag == "Player" || 
                 this.tag == "EnemyProjectile" && collision.collider.tag == "Forcefield" ||
-                this.tag == "AltBossProjectile" && collision.collider.tag == "PlayerProjectile")
+                this.tag == "AltEnemyProjectile" && collision.collider.tag == "PlayerProjectile" ||
+                this.tag == "AltBossProjectile" && collision.collider.tag == "PlayerProjectile" ||
+                this.tag == "AltBossProjectile" && collision.collider.tag == "AltBossProjectile")
             {
+                Physics.IgnoreCollision(this.Collider, collision.collider);
                 return;
             }
             if (collision.collider.tag == "Player")
