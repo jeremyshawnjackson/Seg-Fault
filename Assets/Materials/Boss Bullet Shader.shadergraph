@@ -46,9 +46,6 @@
             "m_Id": "7bfe940fd5a94019b7d0bde227e8faed"
         },
         {
-            "m_Id": "3ad306cdab264b97bab248ee2afc2657"
-        },
-        {
             "m_Id": "f64d7fe379ce4b95aaca85e1319f108c"
         },
         {
@@ -155,9 +152,6 @@
             },
             {
                 "m_Id": "1c884d5832364cf39830fd3bc448bdad"
-            },
-            {
-                "m_Id": "3ad306cdab264b97bab248ee2afc2657"
             }
         ]
     },
@@ -380,39 +374,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "3ad306cdab264b97bab248ee2afc2657",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Alpha",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "4f125227a4bc4634a5d4acbfecea0471"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.TangentMaterialSlot",
     "m_ObjectId": "3c5af3f01338444d93d3b976ddddce16",
     "m_Id": 0,
@@ -528,21 +489,6 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "4f125227a4bc4634a5d4acbfecea0471",
-    "m_Id": 0,
-    "m_DisplayName": "Alpha",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Alpha",
-    "m_StageCapability": 2,
-    "m_Value": 1.0,
-    "m_DefaultValue": 1.0,
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "4f17809cc7064a73b50a3342b6bf137a",
     "m_Id": 0,
     "m_DisplayName": "Smoothness",
@@ -634,7 +580,7 @@
     "m_ActiveSubTarget": {
         "m_Id": "51e7a9b488b24408af6b1dc07fd0daf6"
     },
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_AlphaMode": 0,
     "m_TwoSided": false,
     "m_AlphaClip": false,
