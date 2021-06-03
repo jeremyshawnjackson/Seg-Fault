@@ -8,7 +8,7 @@ namespace Redux
     {
         [Header("Basic Settings")]
         [HideInInspector] public int ExtraLives = 3;
-        [SerializeField] private int MaxHealth;
+        public int MaxHealth;
         private int Health;
         public float MoveSpeed;
         public float TurnSpeed;
@@ -25,13 +25,14 @@ namespace Redux
 
 
         [HideInInspector] public AudioManagerController AudioManager;
+        [HideInInspector] public Collider Playfield;
 
 
         private ICommand MoveCommand;
         private ICommand RotateCommand;
         private ICommand DashCommand;
 
-        private float DamageCooldown;   // bandaid solution to multiple colliders triggering on the same event
+        private float DamageCooldown;
         private float TimeSinceDamaged;
         private bool IsVulnerable;
 
@@ -48,6 +49,7 @@ namespace Redux
             Health = MaxHealth;
 
             AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+            Playfield = GameObject.Find("Playfield").GetComponent<Collider>();
         }
 
         void FixedUpdate()
@@ -63,6 +65,10 @@ namespace Redux
             if (Health <= 0)
             {
                 Die();
+            }
+            if (!Playfield.bounds.Contains(this.transform.position))
+            {
+                this.TakeDamage();
             }
         }
         public void Die()
@@ -91,6 +97,11 @@ namespace Redux
                 Debug.Log("Player health reduced to " + Health);
                 TimeSinceDamaged = 0;
             }
+        }
+
+        public int GetHealth()
+        {
+            return Health;
         }
 
         void OnTriggerEnter(Collider other)

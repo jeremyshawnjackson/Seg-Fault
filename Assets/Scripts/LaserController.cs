@@ -28,7 +28,7 @@ public class LaserController : MonoBehaviour
                             FirePoint.forward, 
                             out hit, 
                             MaxDistance, 
-                            ~(LayerMask.GetMask("Projectile") | LayerMask.GetMask("Shockwave") | LayerMask.GetMask("PlayerProjectile"))))
+                            ~(LayerMask.GetMask("Projectile") | LayerMask.GetMask("Shockwave") | LayerMask.GetMask("PlayerProjectile") | LayerMask.GetMask("BossProjectile") | LayerMask.GetMask("AltBossProjectile"))))
         {
             Debug.DrawLine(FirePoint.position, hit.point, Color.red);
             DrawRay(FirePoint.position, FirePoint.position + FirePoint.forward * hit.distance);

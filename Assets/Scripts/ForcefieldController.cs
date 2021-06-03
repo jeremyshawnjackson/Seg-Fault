@@ -12,6 +12,8 @@ public class ForcefieldController : MonoBehaviour
     void Start()
     {
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+        float lifespan = GameObject.Find("Boss Model").GetComponent<CountdownTimer>().TimeStart;
+        Destroy(this.gameObject, lifespan);
     }
 
     // Update is called once per frame

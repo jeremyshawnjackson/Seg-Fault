@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Redux
@@ -76,9 +77,16 @@ namespace Redux
                 this.tag == "EnemyProjectile" && collision.collider.tag == "Forcefield" ||
                 this.tag == "AltEnemyProjectile" && collision.collider.tag == "PlayerProjectile" ||
                 this.tag == "AltBossProjectile" && collision.collider.tag == "PlayerProjectile" ||
-                this.tag == "AltBossProjectile" && collision.collider.tag == "AltBossProjectile")
+                this.tag == "AltBossProjectile" && collision.collider.tag == "AltBossProjectile" ||
+                this.tag == "AltEnemyProjectile" && collision.collider.tag == "AltEnemyProjectile" ||
+                this.tag == "AltBossProjectile" && collision.collider.tag == "EnemyProjectile" ||
+                this.tag == "AltEnemyProjectile" && collision.collider.tag == "EnemyProjectile")
             {
-                Physics.IgnoreCollision(this.Collider, collision.collider);
+                try
+                {
+                    Physics.IgnoreCollision(this.Collider, collision.collider);
+                }
+                catch (MissingComponentException){}
                 return;
             }
             if (collision.collider.tag == "Player")

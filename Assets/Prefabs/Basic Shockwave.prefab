@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hitbox: {fileID: 407253762293664843}
-  MaxRadius: 250
+  MaxRadius: 1000
   GrowthSpeed: 0.4
   CircleRenderer: {fileID: 407253762293664842}
   Width: 2

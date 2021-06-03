@@ -43,6 +43,10 @@ public class CommandDash : ScriptableObject, ICommand
                 movement = gameObject.transform.forward;
             }
             Destination = gameObject.transform.position + Player.DashDistance * movement.normalized;
+            if (!Player.Playfield.bounds.Contains(Destination))
+            {
+                Destination = Player.Playfield.ClosestPoint(Destination);
+            }
 
             Dashing = true;
         }

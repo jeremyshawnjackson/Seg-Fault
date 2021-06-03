@@ -3,8 +3,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    public Vector3 targetOffset;
+    private Vector3 targetOffset;
     public float movementSpeed;
+
+    void Start()
+    {
+        targetOffset = this.transform.position - target.position;
+    }
 
     private void FixedUpdate()
     {

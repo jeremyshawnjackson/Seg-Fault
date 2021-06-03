@@ -31,7 +31,16 @@ public class EnemyController : MonoBehaviour
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         Rigidbody = this.GetComponent<Rigidbody>();
         Rigidbody.mass = 99999999;
-        target = GameObject.Find("Player").transform;
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            target = null;
+        }
+        
         switch(EnemyType)
         {
             case EnemyTypes.Stationary:
