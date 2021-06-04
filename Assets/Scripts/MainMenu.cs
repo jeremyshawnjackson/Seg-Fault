@@ -40,7 +40,7 @@ public class MainMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public void NewGame()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level 1-1");
     }
 
     public void QuitGame()

@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 5780053793517854933, guid: f65765043f993e445bff1b82f35f56a1, type: 3}
-  FireRate: 0.1
+  FireRate: 0.2
   ProjectileSpeed: 50
   GunType: 1
   ShootSound: {fileID: 0}
