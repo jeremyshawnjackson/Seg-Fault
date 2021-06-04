@@ -9,7 +9,7 @@ public class CommandEmitShockwave : ScriptableObject, ICommand
         ShockwaveEmitterController shockwave = gameObject.GetComponent<ShockwaveEmitterController>();
         GameObject projectile = shockwave.ShockwavePrefab;
 
-        if (shockwave.LastTimeFired + shockwave.FireRate <= Time.time)
+        if (shockwave.LastTimeFired + shockwave.FireRate <= Time.time || Time.time == 0)
         {
             shockwave.LastTimeFired = Time.time;
             shockwave.ObjectPool.SpawnFromPool("EnemyShockwave", shockwave.transform.position, shockwave.transform.rotation);

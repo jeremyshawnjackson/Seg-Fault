@@ -17,7 +17,7 @@ public class AudioManagerController : MonoBehaviour
     {
         if (clip != null)
         {
-            Audio.PlayOneShot(clip, Volume);
+            Audio.PlayOneShot(clip/*, Volume*/);
         }
     }
 }

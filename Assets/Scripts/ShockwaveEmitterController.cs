@@ -15,6 +15,7 @@ public class ShockwaveEmitterController : MonoBehaviour
     {
         ObjectPool = ObjectPooler.Instance;
         this.Emit = ScriptableObject.CreateInstance<CommandEmitShockwave>();
+        LastTimeFired = 0;
     }
 
     void FixedUpdate()

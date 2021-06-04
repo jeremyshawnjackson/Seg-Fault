@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("GameManager started.");
+        Debug.Log("Num enemies: " + EnemyController.EnemyCount);
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         GameHasEnded = false;
         LevelCompleted = false;
