@@ -6,18 +6,16 @@ using UnityEngine;
 public class AudioManagerController : MonoBehaviour
 {
     private AudioSource Audio;
-    private float Volume;
     void Start()
     {
         Audio = this.GetComponent<AudioSource>();
-        Volume = 0.01f;
     }
 
     public void PlayClip(AudioClip clip)
     {
-        if (clip != null)
+        if (clip != null && !PauseMenu.GameIsPaused)
         {
-            Audio.PlayOneShot(clip/*, Volume*/);
+            Audio.PlayOneShot(clip);
         }
     }
 }

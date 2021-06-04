@@ -10,20 +10,19 @@ public class GameManager : MonoBehaviour
     public float SceneDelay = 1f;
     public AudioClip LevelCompleteSound;
     EnemyController EnemyController;
-    public GameObject LevelCompletedUI;
+    private GameObject LevelCompletedUI;
     private PlayerController Player;
     private AudioManagerController AudioManager;
     private bool LevelCompleted;
-    // private List<GameObject> Enemies;
 
     void Start()
     {
-        Debug.Log("GameManager started.");
-        Debug.Log("Num enemies: " + EnemyController.EnemyCount);
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         GameHasEnded = false;
         LevelCompleted = false;
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
+        LevelCompletedUI = GameObject.Find("UI").transform.Find("LevelComplete").gameObject;
+        Debug.Log(LevelCompletedUI.ToString());
     }
 
     void Update()
@@ -35,15 +34,6 @@ public class GameManager : MonoBehaviour
             Invoke("CompleteLevel", SceneDelay);
         }
     }
-
-    /*public void KilledEnemy(GameObject enemy)
-    {
-        if (Enemies.Contains(enemy))
-        {
-            Enemies.Remove(enemy);
-        }
-        Debug.Log(Enemies.Count + " enemies remain");
-    }*/
 
     public bool EnemiesDefeated()
     {
