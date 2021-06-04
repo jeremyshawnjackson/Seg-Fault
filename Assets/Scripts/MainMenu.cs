@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public Dropdown ResolutionDropdown; 
+    public Dropdown LevelSelectDropdown;
     Resolution[] Resolutions;
     void Start()
     {
@@ -35,6 +36,16 @@ public class MainMenu : MonoBehaviour
         }
 
         ResolutionDropdown.AddOptions(options);
+
+        LevelSelectDropdown.ClearOptions();
+        options = new List<string>();
+        for (int i = 1; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            options.Add("Level " + i);
+        }
+        LevelSelectDropdown.AddOptions(options);
+        LevelSelectDropdown.RefreshShownValue();
+
     }
 
     public AudioMixer audioMixer;
@@ -64,5 +75,10 @@ public class MainMenu : MonoBehaviour
     {
         Resolution resolution = Resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SelectLevel(int levelIndex)
+    {
+        SceneManager.LoadScene(levelIndex);
     }
 }
