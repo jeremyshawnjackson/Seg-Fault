@@ -5,6 +5,12 @@ public class LevelComplete : MonoBehaviour
 {
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextLevel < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextLevel);
+        } else{
+            SceneManager.LoadScene(0);
+        }
     }
 }

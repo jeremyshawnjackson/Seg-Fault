@@ -79,6 +79,6 @@ public class MainMenu : MonoBehaviour
 
     public void SelectLevel(int levelIndex)
     {
-        SceneManager.LoadScene(levelIndex);
+        SceneManager.LoadScene(levelIndex + 1);
     }
 }
