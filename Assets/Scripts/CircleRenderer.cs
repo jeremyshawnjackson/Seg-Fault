@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class CircleRenderer : MonoBehaviour
 {
-    int segments = 360;
+    int Segments = 360;
     public float Width;
     public float Radius;
-    LineRenderer line;
+    LineRenderer Line;
     public Material Mat;
 
-    int pointCount;
-    Vector3[] points;
+    int PointCount;
+    Vector3[] Points;
 
     
 
     void Start()
     {
-        line = this.gameObject.AddComponent<LineRenderer>();
-        line.useWorldSpace = false;
-        line.positionCount = segments + 1;
-        pointCount = segments + 1;
-        points = new Vector3[pointCount];
-        line.material = Mat;
+        Line = this.gameObject.AddComponent<LineRenderer>();
+        Line.useWorldSpace = false;
+        Line.positionCount = Segments + 1;
+        PointCount = Segments + 1;
+        Points = new Vector3[PointCount];
+        Line.material = Mat;
     }
 
     // Update is called once per frame
@@ -33,13 +33,13 @@ public class CircleRenderer : MonoBehaviour
 
     void DrawCircle(float radius)
     {
-        line.startWidth = Width;
-        line.endWidth = Width;
-        for (int i = 0; i < pointCount; i++)
+        Line.startWidth = Width;
+        Line.endWidth = Width;
+        for (int i = 0; i < PointCount; i++)
         {
-            var rad = Mathf.Deg2Rad * (i * 360f / segments);
-            points[i] = new Vector3(Mathf.Sin(rad) * radius, 0, Mathf.Cos(rad) * radius);
+            var rad = Mathf.Deg2Rad * (i * 360f / Segments);
+            Points[i] = new Vector3(Mathf.Sin(rad) * radius, 0, Mathf.Cos(rad) * radius);
         }
-        line.SetPositions(points);
+        Line.SetPositions(Points);
     }
 }

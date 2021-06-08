@@ -964,7 +964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d6b7bb99d3e104dad55b8a40311b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 30
+  Health: 25
   MoveSpeed: 0
   TurnSpeed: 100
   EnemyType: 1
@@ -1032,6 +1032,10 @@ PrefabInstance:
     - target: {fileID: 2974185288456575319, guid: 7114eae4f77618843a10439981b12521, type: 3}
       propertyPath: m_Name
       value: Enemy Spin Alt Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974185288456575322, guid: 7114eae4f77618843a10439981b12521, type: 3}
+      propertyPath: Health
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2974185288456575323, guid: 7114eae4f77618843a10439981b12521, type: 3}
       propertyPath: m_RootOrder
