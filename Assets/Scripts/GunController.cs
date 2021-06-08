@@ -21,6 +21,7 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         AudioManager = GameObject.Find("Audio Manager").GetComponent<AudioManagerController>();
         switch(GunType)
         {

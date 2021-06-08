@@ -218,6 +218,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5548642608187578214, guid: 6cfd7f25e8f87304d86ae4ca5e4ffb14, type: 3}
+      propertyPath: m_Text
+      value: 'THAT''S ALL FOR NOW
+
+
+        THANKS FOR PLAYING!
+
+'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cfd7f25e8f87304d86ae4ca5e4ffb14, type: 3}
 --- !u!1 &5797377 stripped
